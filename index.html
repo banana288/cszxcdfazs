@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Pretzel Coffee | Нежная кофейня</title>
+    <!-- Премиальная типографика -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(145deg, #FFF5F8 0%, #F0F9FF 100%);
+            color: #2D2A40;
+            scroll-behavior: smooth;
+        }
+
+        /* Нежная палитра */
+        :root {
+            --rose-dust: #F9C7C2;
+            --lavender-blush: #E8D0F0;
+            --mint-cloud: #C4E6E1;
+            --peach-mist: #FFDFC5;
+            --soft-lilac: #B5A0D1;
+            --powder-pink: #FCD5D9;
+            --cream-white: #FFFEFC;
+            --warm-grey: #F8F5F2;
+            --text-soft: #4A4458;
+            --accent-rose: #E68A8C;
+            --accent-lavender: #A88BCC;
+        }
+
+        h1, h2, h3, .logo-text, .section-title, .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        /* Отступы по бокам для воздуха */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(230, 138, 140, 0.25);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .logo:hover { transform: scale(1.02); }
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--accent-rose);
+            filter: drop-shadow(0 2px 6px rgba(230,138,140,0.3));
+        }
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #5B4C6E;
+        }
+        .logo-text span {
+            color: var(--accent-rose);
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.2rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #5B4C6E;
+            transition: 0.2s;
+            font-size: 0.95rem;
+            position: relative;
+        }
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-rose);
+            transition: width 0.25s ease;
+            border-radius: 2px;
+        }
+        .nav-links a:hover:after { width: 100%; }
+        .nav-links a:hover { color: var(--accent-rose); }
+
+        .burger {
+            display: none;
+            font-size: 1.7rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--accent-rose);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 24px; }
+            .burger { display: block; }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 280px;
+                height: 100vh;
+                background: rgba(255,255,255,0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                box-shadow: -5px 0 30px rgba(0,0,0,0.05);
+                transition: right 0.3s ease;
+                z-index: 999;
+                border-left: 3px solid var(--accent-rose);
+            }
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 1.2rem; }
+            header { padding: 0.8rem 1.2rem; }
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(115deg, #FFF0F3 0%, #F4F0FF 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+            border-radius: 0 0 70px 70px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero:before {
+            content: "🌸";
+            font-size: 180px;
+            color: rgba(230,138,140,0.08);
+            position: absolute;
+            bottom: -40px;
+            left: -30px;
+            pointer-events: none;
+        }
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #5B4C6E;
+        }
+        .hero h1 span {
+            color: var(--accent-rose);
+            font-style: italic;
+        }
+        .hero-tagline {
+            font-size: 1.4rem;
+            max-width: 750px;
+            margin: 1.2rem auto 0.5rem;
+            color: #7A6A8A;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        .hero-description {
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 1rem auto 0;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(4px);
+            padding: 0.7rem 1.8rem;
+            border-radius: 60px;
+            display: inline-block;
+            font-weight: 500;
+            color: var(--accent-rose);
+            border: 1px solid rgba(230,138,140,0.3);
+        }
+
+        /* Секции */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 3.5rem 0 1.5rem;
+            color: #5B4C6E;
+            position: relative;
+        }
+        .section-title:after {
+            content: '✧';
+            display: block;
+            font-size: 1.8rem;
+            color: var(--accent-rose);
+            margin-top: 6px;
+        }
+
+        /* Фильтры меню */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        .filter-btn {
+            background: white;
+            border: 1px solid var(--accent-rose);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            color: var(--accent-rose);
+            cursor: pointer;
+            transition: all 0.25s;
+            font-size: 0.9rem;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-rose);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(230,138,140,0.25);
+            border-color: var(--accent-rose);
+        }
+
+        /* Карточки меню */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .menu-card {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(2px);
+            border-radius: 32px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.02);
+            border: 1px solid rgba(230,138,140,0.2);
+        }
+        .menu-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--rose-dust);
+            box-shadow: 0 25px 35px -12px rgba(200, 140, 160, 0.2);
+            background: white;
+        }
+        .menu-img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            background: #FCE9F0;
+        }
+        .menu-info {
+            padding: 1.3rem 1.3rem 1.6rem;
+            text-align: center;
+        }
+        .menu-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #5B4C6E;
+        }
+        .menu-desc {
+            font-size: 0.85rem;
+            color: #8E7C9A;
+            margin: 0.4rem 0;
+        }
+        .menu-price {
+            font-weight: 800;
+            color: var(--accent-rose);
+            font-size: 1.2rem;
+            margin-top: 0.6rem;
+        }
+
+        /* Сезонные напитки — карусель */
+        .seasonal-section {
+            background: linear-gradient(125deg, #FFF5F0, #F5F0FF);
+            padding: 2rem 0;
+            border-radius: 55px;
+            margin: 2rem 0;
+            border: 1px solid rgba(230,138,140,0.2);
+        }
+        .swiper {
+            padding: 1.5rem 0 2rem;
+        }
+        .swiper-slide {
+            background: white;
+            border-radius: 40px;
+            padding: 1.8rem 1rem;
+            text-align: center;
+            transition: 0.3s;
+            border-bottom: 4px solid var(--rose-dust);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+            height: auto;
+        }
+        .swiper-slide:hover {
+            transform: translateY(-5px);
+            border-bottom-color: var(--accent-rose);
+        }
+        .seasonal-img {
+            width: 110px;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 35px;
+            margin: 0 auto 1rem;
+            background: #FFE8EF;
+        }
+        .swiper-button-next, .swiper-button-prev { color: var(--accent-rose); }
+
+        /* НОВЫЙ БЛОК: Почему выбирают нас */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0 3rem;
+        }
+        .feature-card {
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(4px);
+            border-radius: 32px;
+            padding: 1.8rem 1.2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--rose-dust);
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: white;
+            box-shadow: 0 15px 30px rgba(230,138,140,0.1);
+        }
+        .feature-icon {
+            font-size: 2.8rem;
+            color: var(--accent-rose);
+            margin-bottom: 1rem;
+        }
+        .feature-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: #5B4C6E;
+        }
+        .feature-card p {
+            font-size: 0.9rem;
+            color: #7A6A8A;
+            line-height: 1.4;
+        }
+
+        /* НОВЫЙ БЛОК: Акции и предложения */
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0 3rem;
+        }
+        .offer-card {
+            background: linear-gradient(115deg, #FFF5F5, #FFF0F7);
+            border-radius: 36px;
+            padding: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            transition: all 0.3s;
+            border: 1px solid var(--rose-dust);
+            position: relative;
+            overflow: hidden;
+        }
+        .offer-card:before {
+            content: "✨";
+            font-size: 80px;
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        .offer-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 15px 30px rgba(230,138,140,0.15);
+            border-color: var(--accent-rose);
+        }
+        .offer-icon {
+            font-size: 2.5rem;
+            color: var(--accent-rose);
+            min-width: 65px;
+            text-align: center;
+        }
+        .offer-content h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #5B4C6E;
+            margin-bottom: 0.3rem;
+        }
+        .offer-content p {
+            font-size: 0.9rem;
+            color: #7A6A8A;
+            margin-bottom: 0.5rem;
+        }
+        .offer-badge {
+            display: inline-block;
+            background: var(--accent-rose);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            margin-top: 0.3rem;
+        }
+
+        /* Отзывы */
+        .reviews-section {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 48px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 1px solid var(--rose-dust);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.02);
+        }
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 1.8rem;
+        }
+        .add-review-btn {
+            background: var(--accent-rose);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(230,138,140,0.3);
+        }
+        .add-review-btn:hover {
+            background: #D47A7C;
+            transform: scale(0.97);
+        }
+        .review-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.3rem;
+            max-height: 420px;
+            overflow-y: auto;
+        }
+        .review-item {
+            background: #FFFBFD;
+            padding: 1rem 1.3rem;
+            border-radius: 28px;
+            border-left: 6px solid var(--rose-dust);
+        }
+        .review-rating { color: #F4B942; margin-bottom: 6px; font-size: 0.9rem; }
+        .review-text { font-size: 0.95rem; color: #4A4458; line-height: 1.45; }
+        .review-name { font-weight: 700; margin-top: 8px; color: var(--accent-rose); font-size: 0.85rem; }
+
+        /* Модалка */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(6px);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .modal-content {
+            background: white;
+            max-width: 460px;
+            width: 90%;
+            padding: 2rem;
+            border-radius: 40px;
+            border: 2px solid var(--rose-dust);
+        }
+        .modal-content input, .modal-content textarea, .modal-content select {
+            width: 100%;
+            padding: 12px 16px;
+            margin: 12px 0;
+            border: 1px solid #F0CFDA;
+            border-radius: 40px;
+            font-family: 'Inter', sans-serif;
+        }
+        .modal-content button {
+            background: var(--accent-rose);
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .close-modal {
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 26px;
+            cursor: pointer;
+            color: var(--accent-rose);
+        }
+
+        /* О нас + карта */
+        .about-map {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .about-box, .contact-map {
+            flex: 1;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(4px);
+            border-radius: 42px;
+            padding: 2rem;
+            border: 1px solid var(--rose-dust);
+        }
+        .about-box h3, .contact-map h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #5B4C6E;
+            margin-bottom: 1rem;
+        }
+        .map-container {
+            width: 100%;
+            height: 320px;
+            border-radius: 32px;
+            overflow: hidden;
+            margin-top: 1rem;
+            border: 2px solid var(--rose-dust);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        /* Футер */
+        footer {
+            background: #F3EDF0;
+            color: #6A5A78;
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+            border-radius: 48px 48px 0 0;
+        }
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+            padding: 0 16px;
+        }
+        .footer-col h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--accent-rose);
+        }
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+        .footer-logo-icon { font-size: 1.6rem; color: var(--accent-rose); }
+        .footer-logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #5B4C6E;
+        }
+        .footer-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .footer-nav a, .footer-contacts p {
+            color: #7E6E8A;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .footer-nav a:hover { color: var(--accent-rose); transform: translateX(4px); }
+        .footer-copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(110, 90, 120, 0.15);
+            font-size: 0.8rem;
+        }
+        .hidden { display: none; }
+        @media (max-width: 768px) {
+            .footer-container { flex-direction: column; text-align: center; gap: 1.5rem; }
+            .footer-nav a, .footer-contacts p { justify-content: center; }
+            .footer-logo { justify-content: center; }
+            .map-container { height: 260px; }
+            .offer-card { flex-direction: column; text-align: center; }
+            .offer-icon { margin-bottom: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <div class="logo-icon"><i class="fas fa-pretzel"></i></div>
+        <div class="logo-text">pretzel <span>coffee</span></div>
+    </div>
+    <button class="burger" id="burgerBtn"><i class="fas fa-bars"></i></button>
+    <nav class="nav-links" id="navLinks">
+        <a href="#menu">Меню</a>
+        <a href="#seasonal">Сезонное</a>
+        <a href="#features">Почему мы</a>
+        <a href="#offers">Акции</a>
+        <a href="#about">О нас</a>
+        <a href="#reviewsBlock">Отзывы</a>
+        <a href="#contacts">Контакты</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>🥨 <span>PRETZEL</span> COFFEE</h1>
+    <div class="hero-tagline">
+        Pretzel Coffee — это не просто кофейня, а место, где рождаются уютные моменты.
+    </div>
+    <div class="hero-description">
+        Мы используем только отборные зёрна и свежие ингредиенты. Приходите за вкусом и атмосферой!
+    </div>
+</section>
+
+<div class="container">
+    <!-- МЕНЮ -->
+    <div id="menu" class="section-title">Наше меню</div>
+    <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">Все</button>
+        <button class="filter-btn" data-filter="croissant">Круасаны</button>
+        <button class="filter-btn" data-filter="waffle">Вафли</button>
+        <button class="filter-btn" data-filter="cold">Холодные</button>
+        <button class="filter-btn" data-filter="hot">Горячие</button>
+        <button class="filter-btn" data-filter="macaron">Макаронсы</button>
+    </div>
+    <div class="menu-grid" id="menuContainer">
+        <div class="menu-card" data-category="croissant"><img class="menu-img" src="https://i.pinimg.com/736x/ec/29/79/ec2979c27ef30301c6dc1787bcd761eb.jpg" alt="Круасан"><div class="menu-info"><div class="menu-title">Классический круасан</div><div class="menu-desc">Масляное тесто, хрустящая корочка</div><div class="menu-price">290₽</div></div></div>
+        <div class="menu-card" data-category="croissant"><img class="menu-img" src="https://i.pinimg.com/736x/79/12/ef/7912efc647eb47244b1cff9adcd2b573.jpg" alt="Шоколадный"><div class="menu-info"><div class="menu-title">Шоколадный круасан</div><div class="menu-desc">Тёмный шоколад, какао-бобы</div><div class="menu-price">340₽</div></div></div>
+        <div class="menu-card" data-category="waffle"><img class="menu-img" src="https://i.pinimg.com/1200x/e8/a9/4e/e8a94e49dc29ca4934239da968ec8722.jpg" alt="Вафля"><div class="menu-info"><div class="menu-title">Брюссельская вафля</div><div class="menu-desc">Сахарная пудра, кленовый сироп</div><div class="menu-price">320₽</div></div></div>
+        <div class="menu-card" data-category="waffle"><img class="menu-img" src="https://i.pinimg.com/736x/b3/af/c1/b3afc12f602e626367726659d1a7a8dd.jpg" alt="Ягодная"><div class="menu-info"><div class="menu-title">Вафля с ягодами</div><div class="menu-desc">Свежие ягоды, сливочный крем</div><div class="menu-price">390₽</div></div></div>
+        <div class="menu-card" data-category="cold"><img class="menu-img" src="https://i.pinimg.com/736x/1e/64/c2/1e64c26bd4f5fd84fd09dcf47ca9a3c2.jpg" alt="Лавандовый"><div class="menu-info"><div class="menu-title">Лавандовый раф</div><div class="menu-desc">Охлаждённый, ноты лаванды</div><div class="menu-price">380₽</div></div></div>
+        <div class="menu-card" data-category="cold"><img class="menu-img" src="https://i.pinimg.com/736x/c4/03/5d/c4035db0f9e570ea5b417883d9b4adb9.jpg" alt="Лимонад"><div class="menu-info"><div class="menu-title">Лимонад малина-базилик</div><div class="menu-desc">Домашний, освежающий</div><div class="menu-price">350₽</div></div></div>
+        <div class="menu-card" data-category="hot"><img class="menu-img" src="https://i.pinimg.com/736x/f8/56/1e/f8561ea80e14bd1989b4fe87736e1468.jpg" alt="Капучино"><div class="menu-info"><div class="menu-title">Капучино Pretzel</div><div class="menu-desc">Нежная пенка, корица</div><div class="menu-price">290₽</div></div></div>
+        <div class="menu-card" data-category="hot"><img class="menu-img" src="https://i.pinimg.com/736x/38/8e/b6/388eb659563041eae8c045a81b5f7e9a.jpg" alt="Матча"><div class="menu-info"><div class="menu-title">Матча латте</div><div class="menu-desc">Японский Matcha, тёплое молоко</div><div class="menu-price">360₽</div></div></div>
+        <div class="menu-card" data-category="macaron"><img class="menu-img" src="https://i.pinimg.com/736x/87/d1/90/87d190d5a88b2a373d1836c7a7bbfbbc.jpg" alt="Макарон"><div class="menu-info"><div class="menu-title">Фисташка-роза</div><div class="menu-desc">Нежный крем, хрустящая текстура</div><div class="menu-price">180₽</div></div></div>
+        <div class="menu-card" data-category="macaron"><img class="menu-img" src="https://i.pinimg.com/1200x/48/80/ac/4880ac8a3788d99a4a2d6904d8f21e3f.jpg" alt="Карамель"><div class="menu-info"><div class="menu-title">Карамель-крендель</div><div class="menu-desc">Специальный вкус кофейни</div><div class="menu-price">190₽</div></div></div>
+    </div>
+
+    <!-- СЕЗОННЫЕ НАПИТКИ (карусель) -->
+    <div id="seasonal" class="seasonal-section">
+        <div class="section-title">Сезонные напитки</div>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img class="seasonal-img" src="https://i.pinimg.com/736x/dd/14/73/dd1473a1035db3e0375e03c7993a904e.jpg"><h4>Медово-имбирный раф</h4><p>Имбирь, мёд, молочная пенка</p><div class="menu-price">380₽</div></div>
+                <div class="swiper-slide"><img class="seasonal-img" src="https://i.pinimg.com/1200x/b7/7b/b7/b77bb764160274f5089bd8b8c87fb673.jpg"><h4>Вишнёвый фраппе</h4><p>Чизкейк, вишня, лёд</p><div class="menu-price">410₽</div></div>
+                <div class="swiper-slide"><img class="seasonal-img" src="https://i.pinimg.com/1200x/fd/4e/6b/fd4e6b50f9ce1b2b10588e9c301526ef.jpg"><h4>Согревающий сидр</h4><p>Корица, гвоздика, апельсин</p><div class="menu-price">350₽</div></div>
+                <div class="swiper-slide"><img class="seasonal-img" src="https://i.pinimg.com/736x/0c/bd/ab/0cbdab16b91dc82290a106b2abd6152d.jpg"><h4>Тыквенный латте</h4><p>Пряный, сливочный, с мускатом</p><div class="menu-price">390₽</div></div>
+                <div class="swiper-slide"><img class="seasonal-img" src="https://i.pinimg.com/1200x/1c/2c/8b/1c2c8bae10f99fc386a070b73d471160.jpg"><h4>Мятный моккачино</h4><p>Шоколад, свежая мята</p><div class="menu-price">395₽</div></div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+    <!-- ПОЧЕМУ ВЫБИРАЮТ НАС -->
+    <div id="features">
+        <div class="section-title">Почему выбирают нас</div>
+        <div class="features-grid">
+            <div class="feature-card"><div class="feature-icon"><i class="fas fa-seedling"></i></div><h3>Только свежие продукты</h3><p>Ежедневная поставка фермерских продуктов и отборные зёрна напрямую с плантаций.</p></div>
+            <div class="feature-card"><div class="feature-icon"><i class="fas fa-heart"></i></div><h3>Авторские рецепты</h3><p>Уникальные десерты и сезонные напитки, которые вы не найдёте больше нигде.</p></div>
+            <div class="feature-card"><div class="feature-icon"><i class="fas fa-leaf"></i></div><h3>Уютная атмосфера</h3><p>Нежные пастельные тона, мягкий свет и музыка создают идеальное настроение.</p></div>
+            <div class="feature-card"><div class="feature-icon"><i class="fas fa-clock"></i></div><h3>Быстрая подача</h3><p>Готовим с душой, но без долгого ожидания. Ваш заказ уже через 5–7 минут.</p></div>
+        </div>
+    </div>
+
+    <!-- АКЦИИ И ПРЕДЛОЖЕНИЯ -->
+    <div id="offers">
+        <div class="section-title">Акции и предложения</div>
+        <div class="offers-grid">
+            <div class="offer-card"><div class="offer-icon"><i class="fas fa-mug-hot"></i></div><div class="offer-content"><h4>Счастливые часы</h4><p>Каждый день с 15:00 до 17:00 — вторая чашка кофе за полцены!</p><span class="offer-badge">До конца месяца</span></div></div>
+            <div class="offer-card"><div class="offer-icon"><i class="fas fa-birthday-cake"></i></div><div class="offer-content"><h4>Именинникам</h4><p>В день рождения — десерт в подарок при заказе от 500₽. Предъявите паспорт.</p><span class="offer-badge">Постоянно</span></div></div>
+            <div class="offer-card"><div class="offer-icon"><i class="fas fa-users"></i></div><div class="offer-content"><h4>Комбо-завтрак</h4><p>Круасан + капучино = 490₽ вместо 580₽. Идеальное утро с Pretzel!</p><span class="offer-badge">До 12:00</span></div></div>
+        </div>
+    </div>
+
+    <!-- О НАС + КОНТАКТЫ С КАРТОЙ -->
+    <div class="about-map" id="about">
+        <div class="about-box">
+            <h3>🥨 О Pretzel Coffee</h3>
+            <p style="margin-top: 1rem; line-height: 1.5;">Мы создали пространство, где нежные краски встречаются с настоящим вкусом. Наша кофейня — это воздушная эстетика: акварельный розовый, лавандовый и мятный оттенки создают ощущение лёгкости. Готовим для вас круасаны, вафли и сезонные напитки с любовью и вдохновением.</p>
+            <p style="margin-top: 1rem; font-weight: 600; color: var(--accent-rose);"><i class="fas fa-feather-alt"></i> Отборные зёрна, свежие ингредиенты и нежная атмосфера.</p>
+        </div>
+        <div id="contacts" class="contact-map">
+            <h3>✨ Контакты</h3>
+            <p><i class="fas fa-map-marker-alt" style="color: var(--accent-rose); width: 28px;"></i> Санкт-Петербург, ул. Рубинштейна, 15</p>
+            <p><i class="fas fa-phone-alt" style="color: var(--accent-rose);"></i> +7 (812) 123-45-67</p>
+            <p><i class="fas fa-envelope" style="color: var(--accent-rose);"></i> hello@pretzelcoffee.ru</p>
+            <p><i class="fas fa-clock" style="color: var(--accent-rose);"></i> ежедневно 09:00 – 22:00</p>
+            <div class="map-container">
+                <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A7b6c6a6c6b1c8e5c6b6f6e7a8d9c0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7g8&ll=30.335099,59.931058&z=17&l=map&pt=30.335099,59.931058,pm2dol" allowfullscreen="true" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- ОТЗЫВЫ -->
+    <div id="reviewsBlock" class="reviews-section">
+        <div class="reviews-header">
+            <h3 style="font-size: 1.8rem; font-family: 'Playfair Display', serif; color: #5B4C6E;">💬 Отзывы гостей</h3>
+            <button class="add-review-btn" id="openModalBtn"><i class="fas fa-pen-fancy"></i> Оставить отзыв</button>
+        </div>
+        <div id="reviewsList" class="review-list">
+            <div class="review-item"><div class="review-rating">★★★★★</div><div class="review-text">"Невероятно уютно! Круасаны тают во рту, а сезонный тыквенный латте — любовь с первой чашки. Интерьер — как из нежного сна."</div><div class="review-name">— Анна</div></div>
+            <div class="review-item"><div class="review-rating">★★★★★</div><div class="review-text">"Очень стильное место, пастельные цвета радуют глаз. Вафли с ягодами — восторг!"</div><div class="review-name">— Михаил</div></div>
+            <div class="review-item"><div class="review-rating">★★★★☆</div><div class="review-text">"Хороший кофе и вежливый персонал. Обязательно вернусь попробовать макаронсы."</div><div class="review-name">— Елена</div></div>
+        </div>
+        <div id="emptyReviewsMsg" class="empty-reviews hidden">Пока нет отзывов. Будьте первым!</div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-col">
+            <div class="footer-logo"><div class="footer-logo-icon"><i class="fas fa-pretzel"></i></div><div class="footer-logo-text">pretzel coffee</div></div>
+            <p style="margin-top: 6px; font-size: 0.85rem;">Нежные моменты с любимым кофе.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Навигация</h4>
+            <div class="footer-nav">
+                <a href="#menu"><i class="fas fa-chevron-right"></i> Меню</a>
+                <a href="#seasonal"><i class="fas fa-chevron-right"></i> Сезонное</a>
+                <a href="#features"><i class="fas fa-chevron-right"></i> Почему мы</a>
+                <a href="#offers"><i class="fas fa-chevron-right"></i> Акции</a>
+                <a href="#about"><i class="fas fa-chevron-right"></i> О нас</a>
+                <a href="#reviewsBlock"><i class="fas fa-chevron-right"></i> Отзывы</a>
+                <a href="#contacts"><i class="fas fa-chevron-right"></i> Контакты</a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Контакты</h4>
+            <div class="footer-contacts">
+                <p><i class="fas fa-map-marker-alt"></i> СПб, ул. Рубинштейна, 15</p>
+                <p><i class="fas fa-phone-alt"></i> +7 (812) 123-45-67</p>
+                <p><i class="fas fa-envelope"></i> hello@pretzelcoffee.ru</p>
+                <p><i class="fas fa-clock"></i> 09:00 – 22:00</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">© 2026 Pretzel Coffee. Все права защищены. С любовью к деталям.</div>
+</footer>
+
+<div id="reviewModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" id="closeModalBtn">&times;</span>
+        <h3>Добавить отзыв</h3>
+        <input type="text" id="reviewerName" placeholder="Ваше имя">
+        <select id="reviewRating">
+            <option value="5">★★★★★ 5</option><option value="4">★★★★☆ 4</option><option value="3">★★★☆☆ 3</option><option value="2">★★☆☆☆ 2</option><option value="1">★☆☆☆☆ 1</option>
+        </select>
+        <textarea id="reviewText" rows="3" placeholder="Поделитесь впечатлениями..."></textarea>
+        <button id="submitReviewBtn">Опубликовать</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    const swiper = new Swiper('.mySwiper', {
+        loop: true, slidesPerView: 1, spaceBetween: 24,
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        breakpoints: { 640: { slidesPerView: 2, spaceBetween: 24 }, 1024: { slidesPerView: 2, spaceBetween: 30 } }
+    });
+
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const menuCards = document.querySelectorAll('.menu-card');
+    function filterMenu(category) {
+        menuCards.forEach(card => { if (category === 'all' || card.dataset.category === category) card.classList.remove('hidden'); else card.classList.add('hidden'); });
+    }
+    filterBtns.forEach(btn => btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterMenu(btn.dataset.filter);
+    }));
+    filterMenu('all');
+
+    const burger = document.getElementById('burgerBtn');
+    const navLinks = document.getElementById('navLinks');
+    burger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        const icon = burger.querySelector('i');
+        icon.classList.toggle('fa-times'); icon.classList.toggle('fa-bars');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        burger.querySelector('i').classList.remove('fa-times');
+        burger.querySelector('i').classList.add('fa-bars');
+    }));
+
+    const reviewsContainer = document.getElementById('reviewsList');
+    const emptyMsg = document.getElementById('emptyReviewsMsg');
+    let reviews = [];
+    function loadReviews() {
+        const stored = localStorage.getItem('pretzel_reviews_full');
+        if (stored) reviews = JSON.parse(stored);
+        else reviews = [
+            { name: "Анна", rating: 5, text: "Невероятно уютно! Круасаны тают во рту, а сезонный тыквенный латте — любовь с первой чашки. Интерьер — как из нежного сна." },
+            { name: "Михаил", rating: 5, text: "Очень стильное место, пастельные цвета радуют глаз. Вафли с ягодами — восторг!" },
+            { name: "Елена", rating: 4, text: "Хороший кофе и вежливый персонал. Обязательно вернусь попробовать макаронсы." }
+        ];
+        renderReviews();
+    }
+    function renderReviews() {
+        reviewsContainer.innerHTML = '';
+        if (reviews.length === 0) { emptyMsg.classList.remove('hidden'); reviewsContainer.classList.add('hidden'); }
+        else { emptyMsg.classList.add('hidden'); reviewsContainer.classList.remove('hidden');
+            reviews.forEach(rev => {
+                const stars = '★'.repeat(rev.rating) + '☆'.repeat(5 - rev.rating);
+                const div = document.createElement('div'); div.className = 'review-item';
+                div.innerHTML = `<div class="review-rating">${stars}</div><div class="review-text">"${escapeHtml(rev.text)}"</div><div class="review-name">— ${escapeHtml(rev.name)}</div>`;
+                reviewsContainer.appendChild(div);
+            });
+        }
+    }
+    function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
+    function addReview(name, rating, text) {
+        if (!name.trim() || !text.trim()) { alert('Заполните имя и текст'); return false; }
+        reviews.unshift({ name: name.trim(), rating: parseInt(rating), text: text.trim() });
+        localStorage.setItem('pretzel_reviews_full', JSON.stringify(reviews));
+        renderReviews(); return true;
+    }
+    const modal = document.getElementById('reviewModal'), openBtn = document.getElementById('openModalBtn'), closeBtn = document.getElementById('closeModalBtn'), submitBtn = document.getElementById('submitReviewBtn');
+    openBtn.onclick = () => modal.style.display = 'flex';
+    closeBtn.onclick = () => modal.style.display = 'none';
+    window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+    submitBtn.onclick = () => {
+        const name = document.getElementById('reviewerName').value, rating = document.getElementById('reviewRating').value, text = document.getElementById('reviewText').value;
+        if (addReview(name, rating, text)) {
+            modal.style.display = 'none';
+            document.getElementById('reviewerName').value = ''; document.getElementById('reviewText').value = '';
+            alert('Спасибо за отзыв!');
+        }
+    };
+    loadReviews();
+
+    document.querySelectorAll('.nav-links a, .footer-nav a, .logo').forEach(el => {
+        if (el.tagName === 'A') {
+            el.addEventListener('click', function(e) {
+                const hash = this.getAttribute('href').substring(1);
+                const target = document.getElementById(hash);
+                if (target && ['menu','seasonal','features','offers','about','reviewsBlock','contacts'].includes(hash)) {
+                    e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        }
+    });
+    document.querySelector('.logo')?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>
